@@ -1,0 +1,39 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("bread's ghub (plz no virus!!1!)", "Synapse")
+local PlayerTab = Window:NewTab("player idk")
+local PlayerSection = PlayerTab:NewSection("player stuff idk")
+local GameTab = Window:NewTab("game tab")
+
+PlayerSection:NewSlider("walk speed", "changes walk speed idk", 500, 16, function(s)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+
+PlayerSection:NewSlider("jump power", "changes jump power idk", 500, 25, function(s)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+end)
+
+local PrisonLifeGameSection = GameTab:NewSection("prison life")
+PrisonLifeGameSection:NewDropdown("gun giver", "gives u the gun u want", {"M9", "Remington 870", "AK-47", "M4A1"}, function(v)
+    local gunfolderidk = game:GetService("Workspace")["Prison_ITEMS"].giver[v].ITEMPICKUP
+    local gunevent = game:GetService("Workspace").Remote.ItemHandler
+    gunevent:InvokeServer(gunfolderidk)
+end)
+PrisonLifeGameSection:NewDropdown("make gun op", "makes the gun SUPER op", {"M9", "Remington 870", "AK-47", "M4A1"}, function(v)
+    local gundataIdfk = nil
+    if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
+        gundataIdfk = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
+    elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(v) then
+        gundataIdfk = require(game:GetService("Players").LocalPlayer.Character[v].GunStates)
+    end
+    if gundataIdfk then
+       gundataIdfk["MaxAmmo"] = math.huge
+       gundataIdfk["CurrentAmmo"] = math.huge
+       gundataIdfk["StoredAmmo"] = math.huge
+       gundataIdfk["FireRate"] = 0.00000000000001
+       gundataIdfk["Spread"] = 0
+       gundataIdfk["Range"] = math.huge
+       gundataIdfk["Bullets"] = 15
+       gundataIdfk["ReloadTime"] = 0.00000000000001
+       gundataIdfk["AutoFire"] = true
+    end
+end)
