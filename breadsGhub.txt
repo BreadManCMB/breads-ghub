@@ -18,7 +18,7 @@ PrisonLifeGameSection:NewDropdown("gun giver", "gives u the gun u want", {"M9", 
     local gunevent = game:GetService("Workspace").Remote.ItemHandler
     gunevent:InvokeServer(gunfolderidk)
 end)
-PrisonLifeGameSection:NewDropdown("make gun op", "makes the gun SUPER op", {"M9", "Remington 870", "AK-47", "M4A1"}, function(v)
+PrisonLifeGameSection:NewDropdown("make gun op (LAGGY)", "makes the gun op", {"M9", "Remington 870", "AK-47", "M4A1"}, function(v)
     local gundataIdfk = nil
     if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
         gundataIdfk = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
@@ -29,11 +29,56 @@ PrisonLifeGameSection:NewDropdown("make gun op", "makes the gun SUPER op", {"M9"
        gundataIdfk["MaxAmmo"] = math.huge
        gundataIdfk["CurrentAmmo"] = math.huge
        gundataIdfk["StoredAmmo"] = math.huge
-       gundataIdfk["FireRate"] = 0.00000000000001
-       gundataIdfk["Spread"] = 0
+       gundataIdfk["FireRate"] = 0.1
+       gundataIdfk["Spread"] = 2
        gundataIdfk["Range"] = math.huge
-       gundataIdfk["Bullets"] = 15
+       gundataIdfk["Bullets"] = 1
        gundataIdfk["ReloadTime"] = 0.00000000000001
-       gundataIdfk["AutoFire"] = true
     end
+end)
+
+local CriminalitySection = GameTab:NewSection("criminality 1.4+")
+CriminalitySection:NewButton("enable chat history", "enable chat history", function(v)
+    game:GetService("Players").LocalPlayer.PlayerGui.Chat.Frame.ChatChannelParentFrame.Visible=true
+end)
+CriminalitySection:NewButton("safe esp", "safe esp idk", function(v)
+ 
+    local ESPtypes = {
+        ["Register"] = Color3.fromRGB(255,50,50),
+        ["SmallSafe"] = Color3.fromRGB(50,255,50),
+        ["MediumSafe"] = Color3.fromRGB(50,50,255),
+     }
+     local surfaces = {"Left","Right","Front","Back","Top","Bottom"}
+     
+     local function newSafeESP(target)
+        repeat wait()until target.PrimaryPart
+        local lolidk
+        for ukrainine,fuckIdk in next, ESPtypes do
+            if string.find(tostring(target),ukrainine)then
+                lolidk = fuckIdk
+            end
+        end
+        for lol=1,#surfaces do
+            local lol2 = Instance.new("SurfaceGui",target.PrimaryPart)
+            lol2.AlwaysOnTop = true
+            lol2.LightInfluence = 0
+            lol2.Face = surfaces[lol]
+            local breadSmile = Instance.new("Frame",lol2)
+            breadSmile.Size = UDim2.new(1,0,1,0)
+            breadSmile.BorderSizePixel = 0
+            breadSmile.BackgroundColor3 = lolidk
+        end
+     end
+     
+     for _,lol3 in next,game.Workspace.Map.CashRegisters:GetChildren()do
+        newSafeESP(lol3)
+     end
+     
+     game.Workspace.Map.CashRegisters.ChildAdded:Connect(function(lol3)
+        newSafeESP(lol3)
+     end)
+
+end)
+CriminalitySection:NewButton("anti cheat", "diables anti-cheat", function(v)
+    _G["SimpleSpyShutdown"]()
 end)
